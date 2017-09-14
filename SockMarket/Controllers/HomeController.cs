@@ -9,11 +9,9 @@ namespace SockMarket.Controllers
 {
     public class HomeController : Controller
     {
-        private MarketContext db = new MarketContext();
-
         public ActionResult Index()
         {
-            return View(db.Companies.ToList());
+            return View();
         }
 
         public ActionResult About()

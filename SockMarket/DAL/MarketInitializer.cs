@@ -17,8 +17,8 @@ namespace SockMarket.DAL
 
             List<ContactPerson> contactPersons = new List<ContactPerson>
             {
-                new ContactPerson{FirstName="John", Lastname="Doe", Email="john.doe@gmail.com", PhoneNumber="+70000000001" },
-                new ContactPerson{FirstName="Max", Lastname="Black", Email="max.black@gmail.com", PhoneNumber="+70000000002" },
+                new ContactPerson{FirstName="John", LastName="Doe", Email="john.doe@gmail.com", PhoneNumber="+70000000001" },
+                new ContactPerson{FirstName="Max", LastName="Black", Email="max.black@gmail.com", PhoneNumber="+70000000002" },
             };
 
             contactPersons.ForEach(person => context.ContactPersons.Add(person));
