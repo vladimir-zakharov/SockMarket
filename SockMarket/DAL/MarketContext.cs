@@ -1,10 +1,11 @@
-﻿using SockMarket.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using SockMarket.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace SockMarket.DAL
 {
-    public class MarketContext : DbContext
+    public class MarketContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Company> Companies { get; set; }
         public DbSet<Contact> Contacts { get; set; }
@@ -13,6 +14,7 @@ namespace SockMarket.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
     }
