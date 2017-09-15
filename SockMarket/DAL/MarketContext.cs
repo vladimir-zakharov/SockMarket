@@ -9,7 +9,6 @@ namespace SockMarket.DAL
     {
         public DbSet<Company> Companies { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<ContactPerson> ContactPersons { get; set; }
         public DbSet<Deal> Deals { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

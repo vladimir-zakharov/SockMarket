@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SockMarket.Models;
 using SockMarket.DAL;
+using SockMarket.ViewModels;
 
 namespace SockMarket.Controllers
 {
@@ -41,7 +42,7 @@ namespace SockMarket.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name")] Company company)
+        public ActionResult Create([Bind(Include = "Name,ContactID")] Company company)
         {
             try
             {
@@ -49,7 +50,7 @@ namespace SockMarket.Controllers
                 {
                     db.Companies.Add(company);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details/" + company.ID);
                 }
 
             }
@@ -66,7 +67,11 @@ namespace SockMarket.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Company company = db.Companies.Find(id);
+            Company company = db.Companies
+                .Include(c => c.Contacts)
+                .Where(c => c.ID == id)
+                .Single();
+            PopulateContactsData(company);
             if (company == null)
             {
                 return HttpNotFound();
@@ -74,20 +79,25 @@ namespace SockMarket.Controllers
             return View(company);
         }
 
-        [HttpPost, ActionName("Edit")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPost(int? id)
+        public ActionResult Edit(int? id, string[] selectedContacts)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Company company = db.Companies.Find(id);
-            if (TryUpdateModel(company, new string[] { "Name" }))
+            Company companyToUpdate = db.Companies
+                .Include(c => c.Contacts)
+                .Where(c => c.ID == id)
+                .Single();
+            if (TryUpdateModel(companyToUpdate, "", new string[] { "Name" }))
             {
                 try
                 {
+                    UpdateCompanyContacts(selectedContacts, companyToUpdate);
+
                     db.SaveChanges();
 
                     return RedirectToAction("Index");
@@ -97,15 +107,19 @@ namespace SockMarket.Controllers
                     ModelState.AddModelError("", "Unable to save changes. Please try again");
                 }
             }
-
-            return View(company);
+            PopulateContactsData(companyToUpdate);
+            return View(companyToUpdate);
         }
 
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Please Try again";
             }
             Company company = db.Companies.Find(id);
             if (company == null)
@@ -119,9 +133,16 @@ namespace SockMarket.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Company company = db.Companies.Find(id);
-            db.Companies.Remove(company);
-            db.SaveChanges();
+            try
+            {
+                Company company = db.Companies.Find(id);
+                db.Companies.Remove(company);
+                db.SaveChanges();
+            }
+            catch (DataException)
+            {
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
             return RedirectToAction("Index");
         }
 
@@ -132,6 +153,55 @@ namespace SockMarket.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void UpdateCompanyContacts(string[] selectedContacts, Company companyToUpdate)
+        {
+            if (selectedContacts == null)
+            {
+                companyToUpdate.Contacts = new List<Contact>();
+                return;
+            }
+
+            var selectedContactsHS = new HashSet<string>(selectedContacts);
+            var companyContacts = new HashSet<int>(companyToUpdate.Contacts.Select(c => c.ID));
+            foreach (var contact in db.Contacts)
+            {
+                if (selectedContactsHS.Contains(contact.ID.ToString()))
+                {
+                    if (!companyContacts.Contains(contact.ID))
+                    {
+                        companyToUpdate.Contacts.Add(contact);
+                    }
+                }
+                else
+                {
+                    if (companyContacts.Contains(contact.ID))
+                    {
+                        companyToUpdate.Contacts.Remove(contact);
+                    }
+                }
+            }
+        }
+
+        private void PopulateContactsData(Company company)
+        {
+            var allContacts = db.Contacts;
+            var companyContacts = new HashSet<int>(company.Contacts.Select(c => c.ID));
+            var viewModel = new List<SelectedContactData>();
+            foreach (var contact in allContacts)
+            {
+                viewModel.Add(new SelectedContactData
+                {
+                    ID = contact.ID,
+                    FirstName = contact.FirstName,
+                    LastName = contact.LastName,
+                    PhoneNumber = contact.PhoneNumber,
+                    Email = contact.Email,
+                    Selected = companyContacts.Contains(contact.ID)
+                });
+            }
+            ViewBag.Contacts = viewModel;
         }
     }
 }

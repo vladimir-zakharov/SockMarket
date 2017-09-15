@@ -1,4 +1,5 @@
 ﻿using SockMarket.Models;
+using System;
 using System.Collections.Generic;
 
 namespace SockMarket.DAL
@@ -15,28 +16,19 @@ namespace SockMarket.DAL
 
             companies.ForEach(company => context.Companies.Add(company));
 
-            List<ContactPerson> contactPersons = new List<ContactPerson>
-            {
-                new ContactPerson{FirstName="John", LastName="Doe", Email="john.doe@gmail.com", PhoneNumber="+70000000001" },
-                new ContactPerson{FirstName="Max", LastName="Black", Email="max.black@gmail.com", PhoneNumber="+70000000002" },
-            };
-
-            contactPersons.ForEach(person => context.ContactPersons.Add(person));
-            context.SaveChanges();
-
             List<Contact> contacts = new List<Contact>
             {
-                new Contact{CompanyID=1, ContactPersonID=1},
-                new Contact{CompanyID=2, ContactPersonID=1},
-                new Contact{CompanyID=2, ContactPersonID=2}
+                new Contact{FirstName="John", LastName="Doe", Email="john.doe@gmail.com", PhoneNumber="+70000000001" },
+                new Contact{FirstName="Max", LastName="Black", Email="max.black@gmail.com", PhoneNumber="+70000000002" },
             };
 
             contacts.ForEach(contact => context.Contacts.Add(contact));
+            context.SaveChanges();
 
             List<Deal> deals = new List<Deal>
             {
-                new Deal{Stage=Stage.InitialContact, CompanyID=1},
-                new Deal{Stage=Stage.Decision, CompanyID=2}
+                new Deal{Time=DateTime.Now, Stage=Stage.InitialContact, CompanyID=1},
+                new Deal{Time=DateTime.Now, Stage=Stage.Decision, CompanyID=2}
             };
 
             deals.ForEach(deal => context.Deals.Add(deal));

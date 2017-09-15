@@ -27,6 +27,35 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
+                @Html.Label("Company Contacts")
+                <table>
+                    <tr>
+                        @{
+                            int cnt = 0;
+                            List<SockMarket.ViewModels.SelectedContactData> contacts = ViewBag.Contacts;
+
+                            foreach (var contact in contacts)
+                            {
+                                if (cnt++ % 1 == 0)
+                                {
+                                    @:</tr><tr>
+                                }
+                                @:<td>
+                                    <input type="checkbox"
+                                           name="selectedContacts"
+                                           value="@contact.ID"
+                                           @(Html.Raw(contact.Selected ? "checked=\"checked\"" : "")) />
+                                           @contact.FirstName @:  @contact.LastName, Phone number: @contact.PhoneNumber, Email: @contact.Email
+                                @:</td>
+                            }
+                            @:</tr>
+                        }
+                    </table>
+                </div>
+            </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>

@@ -11,100 +11,107 @@ using SockMarket.Models;
 
 namespace SockMarket.Controllers
 {
-    public class DealsController : Controller
+    public class ContactsController : Controller
     {
         private MarketContext db = new MarketContext();
 
+        // GET: Contacts
         public ActionResult Index()
         {
-            var deals = db.Deals.Include(d => d.Company);
-            return View(deals.ToList());
+            return View(db.Contacts.ToList());
         }
 
+        // GET: Contacts/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Deal deal = db.Deals.Find(id);
-            if (deal == null)
+            Contact contact = db.Contacts.Find(id);
+            if (contact == null)
             {
                 return HttpNotFound();
             }
-            return View(deal);
+            return View(contact);
         }
 
+        // GET: Contacts/Create
         public ActionResult Create()
         {
-            ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name");
             return View();
         }
 
+        // POST: Contacts/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Stage,CompanyID")] Deal deal)
+        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Email,PhoneNumber")] Contact contact)
         {
             if (ModelState.IsValid)
             {
-                db.Deals.Add(deal);
+                db.Contacts.Add(contact);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name", deal.CompanyID);
-            return View(deal);
+            return View(contact);
         }
 
+        // GET: Contacts/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Deal deal = db.Deals.Find(id);
-            if (deal == null)
+            Contact contact = db.Contacts.Find(id);
+            if (contact == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name", deal.CompanyID);
-            return View(deal);
+            return View(contact);
         }
 
+        // POST: Contacts/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Stage,CompanyID")] Deal deal)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Email,PhoneNumber")] Contact contact)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(deal).State = EntityState.Modified;
+                db.Entry(contact).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name", deal.CompanyID);
-            return View(deal);
+            return View(contact);
         }
 
+        // GET: Contacts/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Deal deal = db.Deals.Find(id);
-            if (deal == null)
+            Contact contact = db.Contacts.Find(id);
+            if (contact == null)
             {
                 return HttpNotFound();
             }
-            return View(deal);
+            return View(contact);
         }
 
+        // POST: Contacts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Deal deal = db.Deals.Find(id);
-            db.Deals.Remove(deal);
+            Contact contact = db.Contacts.Find(id);
+            db.Contacts.Remove(contact);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
