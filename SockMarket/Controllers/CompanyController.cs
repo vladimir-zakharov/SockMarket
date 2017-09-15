@@ -50,7 +50,7 @@ namespace SockMarket.Controllers
                 {
                     db.Companies.Add(company);
                     db.SaveChanges();
-                    return RedirectToAction("Details/" + company.ID);
+                    return RedirectToAction("Index");
                 }
 
             }
