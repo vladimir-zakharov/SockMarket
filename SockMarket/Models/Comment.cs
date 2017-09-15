@@ -10,8 +10,7 @@ namespace SockMarket.Models
         public string Text { get; set; }
         [Required]
         public DateTime Time { get; set; }
-        public int UserID { get; set; }
-
-        public virtual ApplicationUser User { get; set; }
+        [Required]
+        public string Author { get; set; }
     }
 }

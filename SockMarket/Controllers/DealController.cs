@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using SockMarket.DAL;
 using SockMarket.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SockMarket.Controllers
 {
@@ -118,6 +120,28 @@ namespace SockMarket.Controllers
             db.Deals.Remove(deal);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult AddComment(int id, string text)
+        {
+            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var userManager = new UserManager<ApplicationUser>(store);
+            var currentUser = userManager.FindById(User.Identity.GetUserId());
+            Comment newComment = new Comment
+            {
+                Text=text,
+                Time=DateTime.Now,
+                Author = currentUser.Email
+            };
+            db.Comments.Add(newComment);
+
+            Deal deal = db.Deals.Find(id);
+            deal.Comments.Add(newComment);
+
+            db.SaveChanges();
+
+            return Json("OK");
         }
 
         protected override void Dispose(bool disposing)

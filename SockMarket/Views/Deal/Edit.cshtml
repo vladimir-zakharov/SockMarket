@@ -34,9 +34,18 @@
 }
 
 <div>
+    <h5>Leave a Comment:</h5>
+    <div>
+        <textarea id="comment-input" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 115px;"></textarea>
+    </div>
+    <button id="post-button" class="btn btn-primary" data-url="@Url.Action("AddComment", "Deal",new {id=Model.ID})">Post</button>
+</div>
+
+<div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/post-comment.js")
 }
