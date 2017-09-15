@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace SockMarket.Models
@@ -14,6 +15,7 @@ namespace SockMarket.Models
     {
         public int ID { get; set; }
         [Required]
+        [DisplayName("Creation time")]
         public DateTime Time { get; set; }
         [Required]
         public Stage Stage { get; set; }
