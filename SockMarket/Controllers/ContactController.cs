@@ -12,7 +12,7 @@ using SockMarket.Models;
 namespace SockMarket.Controllers
 {
     [Authorize]
-    public class ContactsController : Controller
+    public class ContactController : Controller
     {
         private MarketContext db = new MarketContext();
 

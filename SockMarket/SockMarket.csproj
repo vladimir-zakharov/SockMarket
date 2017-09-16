@@ -191,7 +191,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
-    <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -273,11 +273,11 @@
     <Content Include="Views\Company\Details.cshtml" />
     <Content Include="Views\Company\Edit.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
-    <Content Include="Views\Contacts\Create.cshtml" />
-    <Content Include="Views\Contacts\Delete.cshtml" />
-    <Content Include="Views\Contacts\Details.cshtml" />
-    <Content Include="Views\Contacts\Edit.cshtml" />
-    <Content Include="Views\Contacts\Index.cshtml" />
+    <Content Include="Views\Contact\Create.cshtml" />
+    <Content Include="Views\Contact\Delete.cshtml" />
+    <Content Include="Views\Contact\Details.cshtml" />
+    <Content Include="Views\Contact\Edit.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Deal\Create.cshtml" />
     <Content Include="Views\Deal\Delete.cshtml" />
     <Content Include="Views\Deal\Details.cshtml" />
