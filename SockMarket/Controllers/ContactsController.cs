@@ -11,6 +11,7 @@ using SockMarket.Models;
 
 namespace SockMarket.Controllers
 {
+    [Authorize]
     public class ContactsController : Controller
     {
         private MarketContext db = new MarketContext();

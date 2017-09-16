@@ -12,6 +12,7 @@ using SockMarket.ViewModels;
 
 namespace SockMarket.Controllers
 {
+    [Authorize]
     public class CompanyController : Controller
     {
         private MarketContext db = new MarketContext();
