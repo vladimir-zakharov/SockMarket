@@ -41,6 +41,16 @@
     <button id="post-button" class="btn btn-primary" data-url="@Url.Action("AddComment", "Deal",new {id=Model.ID})">Post</button>
 </div>
 
+<div id="comments">
+    @foreach (var item in Model.Comments.Reverse())
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">@Html.DisplayFor(modelItem => item.Author) commented @Html.DisplayFor(modelItem => item.Time)</div>
+            <div class="panel-body">@Html.DisplayFor(modelItem => item.Text)</div>
+        </div>
+    }
+</div>
+
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

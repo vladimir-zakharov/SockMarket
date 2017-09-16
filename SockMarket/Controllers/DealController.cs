@@ -10,6 +10,7 @@ using SockMarket.DAL;
 using SockMarket.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using SockMarket.ViewModels;
 
 namespace SockMarket.Controllers
 {
@@ -141,7 +142,14 @@ namespace SockMarket.Controllers
 
             db.SaveChanges();
 
-            return Json("OK");
+            CommentData commentData = new CommentData
+            {
+                Text = text,
+                Time = newComment.Time.ToString(),
+                Author = currentUser.Email
+            };
+
+            return Json(commentData, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

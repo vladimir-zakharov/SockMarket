@@ -1,6 +1,6 @@
 ﻿$("#post-button").click(function (e) {
-    var commentText = $("#comment-input").val()
-    if (commentText === '') return
+    var commentText = $("#comment-input").val();
+    if (commentText === '') return;
     e.preventDefault();
     $.ajax({
         type: "POST",
@@ -8,10 +8,20 @@
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
         data: JSON.stringify({ text: commentText }),
-        success: function () {
+        success: function (comment) {
+            addNewComment(comment);
         },
         error: function () {
             alert('Unable to add comment. Please try again');
         }
     });
 });
+
+function addNewComment(comment) {
+    $("#comments").prepend('\
+        <div class="panel panel-default">\
+            <div class="panel-heading">' + comment.Author + ' commented ' + comment.Time + '</div>\
+            <div class="panel-body">' + comment.Text + '</div>\
+        </div>\
+        ');
+}
