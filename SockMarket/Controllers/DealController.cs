@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using SockMarket.DAL;
 using SockMarket.Models;
@@ -100,7 +98,7 @@ namespace SockMarket.Controllers
             return View(dealToUpdate);
         }
 
-        public ActionResult Delete(int? id, bool? saveChangesError = false)
+        public ActionResult Cancel(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
@@ -108,7 +106,7 @@ namespace SockMarket.Controllers
             }
             if (saveChangesError.GetValueOrDefault())
             {
-                ViewBag.ErrorMessage = "Delete failed. Please Try again";
+                ViewBag.ErrorMessage = "Cancel failed. Please Try again";
             }
             Deal deal = db.Deals.Find(id);
             if (deal == null)
@@ -118,19 +116,22 @@ namespace SockMarket.Controllers
             return View(deal);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Cancel")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult CancelConfirmed(int id)
         {
             try
             {
-                Deal deal = db.Deals.Find(id);
-                db.Deals.Remove(deal);
+                Deal dealToDelete = db.Deals
+                .Include(c => c.Comments)
+                .Where(c => c.ID == id)
+                .Single();
+                db.Deals.Remove(dealToDelete);
                 db.SaveChanges();
             }
             catch (DataException)
             {
-                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+                return RedirectToAction("Cancel", new { id = id, saveChangesError = true });
             }
             return RedirectToAction("Index");
         }

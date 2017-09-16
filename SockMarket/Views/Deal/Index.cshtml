@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SockMarket.Models.Deal>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Deals";
 }
 
 <h2>Deals</h2>
@@ -41,7 +41,7 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-sm btn-default" })
                     @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-sm btn-info" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-sm btn-danger" })
+                    @Html.ActionLink("Cancel", "Cancel", new { id = item.ID }, new { @class = "btn btn-sm btn-danger" })
                 </td>
             </tr>
         }

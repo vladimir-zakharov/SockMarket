@@ -1,15 +1,13 @@
 ﻿@model SockMarket.Models.Deal
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Cancel Deal";
 }
 
-<h2>Delete</h2>
+<h2>Cancel</h2>
 <p class="error">@ViewBag.ErrorMessage</p>
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to cancel this deal?</h3>
 <div>
-    <h4>Deal</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Company.Name)
@@ -41,7 +39,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Cancel" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }
