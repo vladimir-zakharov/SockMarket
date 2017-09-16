@@ -1,6 +1,6 @@
 ﻿$("#post-button").click(function (e) {
     var commentText = $("#comment-input").val();
-    if (commentText === '') return;
+    if (commentText.length === 0 || !commentText.trim()) return;
     e.preventDefault();
     $.ajax({
         type: "POST",
@@ -21,7 +21,7 @@ function addNewComment(comment) {
     $("#comments").prepend('\
         <div class="panel panel-default">\
             <div class="panel-heading">' + comment.Author + ' commented ' + comment.Time + '</div>\
-            <div class="panel-body">' + comment.Text + '</div>\
+            <div class="panel-body" style="white-space: pre-line">' + comment.Text + '</div>\
         </div>\
         ');
 }
