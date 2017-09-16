@@ -100,11 +100,15 @@ namespace SockMarket.Controllers
             return View(dealToUpdate);
         }
 
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Please Try again";
             }
             Deal deal = db.Deals.Find(id);
             if (deal == null)
@@ -118,9 +122,16 @@ namespace SockMarket.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Deal deal = db.Deals.Find(id);
-            db.Deals.Remove(deal);
-            db.SaveChanges();
+            try
+            {
+                Deal deal = db.Deals.Find(id);
+                db.Deals.Remove(deal);
+                db.SaveChanges();
+            }
+            catch (DataException)
+            {
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
             return RedirectToAction("Index");
         }
 
@@ -130,6 +141,7 @@ namespace SockMarket.Controllers
             var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
             var userManager = new UserManager<ApplicationUser>(store);
             var currentUser = userManager.FindById(User.Identity.GetUserId());
+
             Comment newComment = new Comment
             {
                 Text=text,
