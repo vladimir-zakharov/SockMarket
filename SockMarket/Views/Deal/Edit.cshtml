@@ -33,22 +33,29 @@
     </div>
 }
 
-<div>
-    <h5>Leave a Comment:</h5>
-    <div>
-        <textarea id="comment-input" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 115px;"></textarea>
-    </div>
-    <button id="post-button" class="btn btn-primary" data-url="@Url.Action("AddComment", "Deal",new {id=Model.ID})">Post</button>
-</div>
-
-<div id="comments">
-    @foreach (var item in Model.Comments.Reverse())
-    {
-        <div class="panel panel-default">
-            <div class="panel-heading">@Html.DisplayFor(modelItem => item.Author) commented @Html.DisplayFor(modelItem => item.Time)</div>
-            <div class="panel-body" style="white-space: pre-line">@Html.DisplayFor(modelItem => item.Text)</div>
+<div class="container col-md-10 col-md-offset-2">
+    <div class="row">
+        <h5>Leave a Comment:</h5>
+        <div class="col-md-5 nopadding">
+            <textarea id="comment-input" class="comment-area" rows="5"></textarea>
         </div>
-    }
+    </div>
+
+    <div class="row">
+        <button id="post-button" class="btn btn-primary" data-url="@Url.Action("AddComment", "Deal",new {id=Model.ID})">Post</button>
+    </div>
+
+    <div id="comments">
+        @foreach (var item in Model.Comments.Reverse())
+        {
+            <div class="row">
+                <div class="panel panel-default col-md-5 nopadding">
+                    <div class="panel-heading">@Html.DisplayFor(modelItem => item.Author) commented @Html.DisplayFor(modelItem => item.Time)</div>
+                    <div class="panel-body" style="white-space: pre-line">@Html.DisplayFor(modelItem => item.Text)</div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
 
 <div>

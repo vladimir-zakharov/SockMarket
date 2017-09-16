@@ -9,6 +9,7 @@
         dataType: 'json',
         data: JSON.stringify({ text: commentText }),
         success: function (comment) {
+            $("#comment-input").val('');
             addNewComment(comment);
         },
         error: function () {
@@ -19,9 +20,11 @@
 
 function addNewComment(comment) {
     $("#comments").prepend('\
-        <div class="panel panel-default">\
-            <div class="panel-heading">' + comment.Author + ' commented ' + comment.Time + '</div>\
-            <div class="panel-body" style="white-space: pre-line">' + comment.Text + '</div>\
+        <div class="row">\
+            <div class="panel panel-default col-md-5 nopadding">\
+                <div class="panel-heading">' + comment.Author + ' commented ' + comment.Time + '</div>\
+                <div class="panel-body" style="white-space: pre-line">' + comment.Text + '</div>\
+            </div>\
         </div>\
         ');
 }

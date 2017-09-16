@@ -31,15 +31,11 @@
                 <table>
                     <tr>
                         @{
-                            int cnt = 0;
                             List<SockMarket.ViewModels.SelectedContactData> contacts = ViewBag.Contacts;
 
                             foreach (var contact in contacts)
                             {
-                                if (cnt++ % 1 == 0)
-                                {
-                                    @:</tr><tr>
-                                }
+                                @:</tr><tr>
                                 @:<td>
                                     <input type="checkbox"
                                            name="selectedContacts"
