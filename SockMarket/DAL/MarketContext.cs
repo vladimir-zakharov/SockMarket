@@ -12,6 +12,11 @@ namespace SockMarket.DAL
         public DbSet<Deal> Deals { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
+        public static MarketContext Create()
+        {
+            return new MarketContext();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

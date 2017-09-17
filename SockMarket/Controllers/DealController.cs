@@ -122,7 +122,7 @@ namespace SockMarket.Controllers
         [HttpPost]
         public ActionResult AddComment(int id, string text)
         {
-            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var store = new UserStore<ApplicationUser>(db);
             var userManager = new UserManager<ApplicationUser>(store);
             var currentUser = userManager.FindById(User.Identity.GetUserId());
 
