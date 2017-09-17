@@ -7,47 +7,38 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Company</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <h3>@Html.DisplayFor(model => model.Name)</h3>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Contacts)
-        </dt>
-        <dd>
-            <table class="table">
+    <div class="col-md-offset-1" style="margin-top: 20px">
+        <h4>@Html.DisplayNameFor(model => model.Contacts)</h4>
+
+        <table class="table">
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Phone number</th>
+                <th>Email</th>
+            </tr>
+            @foreach (var item in Model.Contacts)
+            {
                 <tr>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>Phone number</th>
-                    <th>Email</th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
                 </tr>
-                @foreach (var item in Model.Contacts)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LastName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PhoneNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                    </tr>
-                }
-            </table>
-        </dd>
-    </dl>
+            }
+        </table>
+    </div>
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
