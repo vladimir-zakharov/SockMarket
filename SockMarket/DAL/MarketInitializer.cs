@@ -27,8 +27,8 @@ namespace SockMarket.DAL
 
             List<Deal> deals = new List<Deal>
             {
-                new Deal{Time=DateTime.Now, Stage=Stage.InitialContact, CompanyID=1},
-                new Deal{Time=DateTime.Now, Stage=Stage.Decision, CompanyID=2}
+                new Deal{CreationTime=DateTime.Now, Stage=Stage.InitialContact, CompanyID=1},
+                new Deal{CreationTime=DateTime.Now, Stage=Stage.Decision, CompanyID=2}
             };
 
             deals.ForEach(deal => context.Deals.Add(deal));

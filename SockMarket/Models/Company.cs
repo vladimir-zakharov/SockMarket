@@ -6,6 +6,7 @@ namespace SockMarket.Models
 {
     public class Company
     {
+        [ScaffoldColumn(false)]
         public int ID { get; set; }
         [Required]
         [DisplayName("Company Name")]

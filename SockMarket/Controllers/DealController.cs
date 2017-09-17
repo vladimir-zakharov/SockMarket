@@ -49,7 +49,7 @@ namespace SockMarket.Controllers
         {
             if (ModelState.IsValid)
             {
-                deal.Time = DateTime.Now;
+                deal.CreationTime = DateTime.Now;
                 db.Deals.Add(deal);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -146,7 +146,7 @@ namespace SockMarket.Controllers
             Comment newComment = new Comment
             {
                 Text=text,
-                Time=DateTime.Now,
+                CreationTime=DateTime.Now,
                 Author = currentUser.Email
             };
             db.Comments.Add(newComment);
@@ -159,7 +159,7 @@ namespace SockMarket.Controllers
             CommentData commentData = new CommentData
             {
                 Text = text,
-                Time = newComment.Time.ToString(),
+                CreationTime = newComment.CreationTime.ToString(),
                 Author = currentUser.Email
             };
 

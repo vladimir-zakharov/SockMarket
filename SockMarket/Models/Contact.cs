@@ -5,6 +5,7 @@ namespace SockMarket.Models
 {
     public class Contact
     {
+        [ScaffoldColumn(false)]
         public int ID { get; set; }
         [Required]
         public string FirstName { get; set; }
