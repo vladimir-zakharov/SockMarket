@@ -13,5 +13,7 @@ namespace SockMarket.Models
         public DateTime CreationTime { get; set; }
         [Required]
         public string Author { get; set; }
+        [ScaffoldColumn(false)]
+        public int DealID { get; set; }
     }
 }

@@ -108,10 +108,7 @@ namespace SockMarket.Controllers
         {
             try
             {
-                Deal dealToDelete = db.Deals
-                .Include(c => c.Comments)
-                .Where(c => c.ID == id)
-                .Single();
+                Deal dealToDelete = db.Deals.Find(id);
                 db.Deals.Remove(dealToDelete);
                 db.SaveChanges();
             }

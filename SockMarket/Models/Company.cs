@@ -14,6 +14,7 @@ namespace SockMarket.Models
 
         [DisplayName("Company Contacts")]
         public virtual ICollection<Contact> Contacts { get; set; }
+        public virtual ICollection<Deal> Deals { get; set; }
     }
 
 }
