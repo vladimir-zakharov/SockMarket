@@ -275,7 +275,6 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Deal\Create.cshtml" />
     <Content Include="Views\Deal\Cancel.cshtml" />
-    <Content Include="Views\Deal\Details.cshtml" />
     <Content Include="Views\Deal\Edit.cshtml" />
     <Content Include="Views\Deal\Index.cshtml" />
   </ItemGroup>

@@ -23,20 +23,6 @@ namespace SockMarket.Controllers
             return View(deals.ToList());
         }
 
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Deal deal = db.Deals.Find(id);
-            if (deal == null)
-            {
-                return HttpNotFound();
-            }
-            return View(deal);
-        }
-
         public ActionResult Create()
         {
             ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name");

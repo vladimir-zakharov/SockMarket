@@ -30,7 +30,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Company.Name)
+                    @Html.ActionLink(item.Company.Name, "Details", "Company", new { id = item.CompanyID }, null)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreationTime)
@@ -40,7 +40,6 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-sm btn-default" })
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-sm btn-info" })
                     @Html.ActionLink("Cancel", "Cancel", new { id = item.ID }, new { @class = "btn btn-sm btn-danger" })
                 </td>
             </tr>

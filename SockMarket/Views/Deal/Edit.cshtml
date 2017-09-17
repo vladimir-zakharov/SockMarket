@@ -6,14 +6,25 @@
 
 <h2>Edit</h2>
 
+<h4>Deal</h4>
+<hr/>
+
+<div class="container">
+    <div class="row">
+        @Html.LabelFor(model => model.Company, htmlAttributes: new { @class = "property-label col-md-2" })
+        @Html.ActionLink(Model.Company.Name, "Details", "Company", new { id = Model.CompanyID }, null)
+    </div>
+
+    <div class="row">
+        @Html.LabelFor(model => model.CreationTime, htmlAttributes: new { @class = "property-label col-md-2" })
+        @Html.DisplayFor(model => model.CreationTime)
+    </div>
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
-        <h4>Deal</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
 
