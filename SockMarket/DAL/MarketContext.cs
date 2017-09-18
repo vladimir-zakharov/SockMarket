@@ -12,6 +12,8 @@ namespace SockMarket.DAL
         public DbSet<Deal> Deals { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
+        public MarketContext() : base("MarketContext") { }
+
         public static MarketContext Create()
         {
             return new MarketContext();
