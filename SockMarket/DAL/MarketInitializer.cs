@@ -23,7 +23,6 @@ namespace SockMarket.DAL
             };
 
             contacts.ForEach(contact => context.Contacts.Add(contact));
-            context.SaveChanges();
 
             List<Deal> deals = new List<Deal>
             {
@@ -34,7 +33,6 @@ namespace SockMarket.DAL
             deals.ForEach(deal => context.Deals.Add(deal));
 
             context.SaveChanges();
-
         }
     }
 }
